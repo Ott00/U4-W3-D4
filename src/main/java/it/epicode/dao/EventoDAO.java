@@ -1,6 +1,8 @@
 package it.epicode.dao;
 
+import it.epicode.entities.Concerto;
 import it.epicode.entities.Evento;
+import it.epicode.entities.PartitaDiCalcio;
 import it.epicode.enumeration.GenereMusicale;
 
 import javax.persistence.EntityManager;
@@ -43,17 +45,28 @@ public class EventoDAO {
         }
     }
 
-    public List<Evento> getConcertiInStreaming(boolean bool) {
-        TypedQuery<Evento> getAllQuery = entityManager.createQuery("SELECT e FROM Evento e WHERE e.inStreaming = :bool", Evento.class);
+    public List<Concerto> getConcertiInStreaming(boolean bool) {
+        TypedQuery<Concerto> getAllQuery = entityManager.createQuery("SELECT e FROM Concerto e WHERE e.inStreaming = :bool", Concerto.class);
         getAllQuery.setParameter("bool", bool);
         return getAllQuery.getResultList();
     }
 
-    public List<Evento> getConcertiPerGenere(GenereMusicale genereMusicale) {
-        TypedQuery<Evento> getAllQuery = entityManager.createQuery("SELECT e FROM Evento e WHERE e.genereMusicale = :genereMusicale", Evento.class);
+    public List<Concerto> getConcertiPerGenere(GenereMusicale genereMusicale) {
+        TypedQuery<Concerto> getAllQuery = entityManager.createQuery("SELECT e FROM Concerto e WHERE e.genereMusicale = :genereMusicale", Concerto.class);
         getAllQuery.setParameter("genereMusicale", genereMusicale);
         return getAllQuery.getResultList();
     }
 
+    public  List<PartitaDiCalcio> getPartiteVinteInCasa(){
+        return entityManager.createNamedQuery("getPartiteVinteInCasa", PartitaDiCalcio.class).getResultList();
+    }
+
+    public  List<PartitaDiCalcio> getPartiteVinteInTrasferta(){
+        return entityManager.createNamedQuery("getPartiteVinteInTrasferta", PartitaDiCalcio.class).getResultList();
+    }
+
+    public  List<PartitaDiCalcio> getPartitePareggiate(){
+        return entityManager.createNamedQuery("getPartitePareggiate", PartitaDiCalcio.class).getResultList();
+    }
 
 }

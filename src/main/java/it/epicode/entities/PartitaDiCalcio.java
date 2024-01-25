@@ -4,12 +4,15 @@ import it.epicode.enumeration.TipoEvento;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "partite")
-//@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p FROM PartitaDiCalcio p WHERE p.golSquadraDiCasa > p.numeroGolSquadraOspite")
+@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p FROM PartitaDiCalcio p WHERE p.golSquadraDiCasa > p.golSquadraOspite")
+@NamedQuery(name = "getPartiteVinteInTrasferta", query = "SELECT p FROM PartitaDiCalcio p WHERE p.golSquadraDiCasa < p.golSquadraOspite")
+@NamedQuery(name = "getPartitePareggiate", query = "SELECT p FROM PartitaDiCalcio p WHERE p.squadraVincente = null")
 public class PartitaDiCalcio extends Evento{
     @Column(name = "squadra_di_casa", nullable = false)
     private String squadraDiCasa;
